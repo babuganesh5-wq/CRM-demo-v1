@@ -1,0 +1,6 @@
+{
+  "name": "Music Academy CRM",
+  "description": "A clean, responsive dashboard for managing music student leads, tracking trial lessons, scheduling tutoring sessions, and monitoring performance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read and write for the CRM leads collection
+    match /leads/{leadId} {
+      allow read, write: if true;
+    }
+    
+    // Allow read and write for the CRM interactions collection
+    match /interactions/{interactionId} {
+      allow read, write: if true;
+    }
+
+    // Allow read and write for the student weekly performance collection
+    match /performances/{performanceId} {
+      allow read, write: if true;
+    }
+
+    // Allow read and write for the invoices and billing collection
+    match /invoices/{invoiceId} {
+      allow read, write: if true;
+    }
+
+    // Allow read and write for lessons and rosters collection
+    match /lessons/{lessonId} {
+      allow read, write: if true;
+    }
+  }
+}

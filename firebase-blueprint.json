@@ -1,0 +1,119 @@
+{
+  "entities": {
+    "leads": {
+      "title": "Lead",
+      "description": "A prospective student lead for the music academy",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "instrument": { "type": "string", "enum": ["Piano", "Guitar", "Violin", "Voice", "Drums", "Flute", "Saxophone"] },
+        "age": { "type": "string" },
+        "experience": { "type": "string", "enum": ["Beginner", "Intermediate", "Advanced"] },
+        "status": { "type": "string", "enum": ["New", "Contacted", "Trial Scheduled", "Enrolled", "Lost"] },
+        "notes": { "type": "string" },
+        "preferredTeacher": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "phone", "instrument", "status"]
+    },
+    "interactions": {
+      "title": "Interaction",
+      "description": "An interaction or communication history with a prospective lead",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "leadId": { "type": "string" },
+        "type": { "type": "string", "enum": ["Call", "Email", "SMS", "Trial Lesson", "Meeting"] },
+        "summary": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "outcome": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["leadId", "type", "summary", "date"]
+    },
+    "performances": {
+      "title": "WeeklyPerformance",
+      "description": "Weekly performance tracing and evaluation records for a student",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "leadId": { "type": "string" },
+        "weekStartDate": { "type": "string", "format": "date" },
+        "technicalScore": { "type": "integer" },
+        "rhythmScore": { "type": "integer" },
+        "expressionScore": { "type": "integer" },
+        "practiceHours": { "type": "integer" },
+        "overallScore": { "type": "integer" },
+        "weeklyFocus": { "type": "string" },
+        "teacherComments": { "type": "string" },
+        "loggedBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["leadId", "weekStartDate", "technicalScore", "rhythmScore", "expressionScore", "practiceHours"]
+    },
+    "invoices": {
+      "title": "Invoice",
+      "description": "Tuition and fee invoice records for enrolled students",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "leadId": { "type": "string" },
+        "leadName": { "type": "string" },
+        "instrument": { "type": "string" },
+        "amount": { "type": "number" },
+        "dueDate": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["Pending", "Paid", "Failed", "Refunded"] },
+        "paidAt": { "type": "string", "format": "date-time" },
+        "receiptNumber": { "type": "string" },
+        "paymentAttempts": { "type": "integer" }
+      },
+      "required": ["leadId", "leadName", "instrument", "amount", "dueDate", "status"]
+    },
+    "lessons": {
+      "title": "LessonEvent",
+      "description": "Scheduled evaluation, trial, or recurring lessons rostered",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "leadId": { "type": "string" },
+        "leadName": { "type": "string" },
+        "tutorId": { "type": "string" },
+        "tutorName": { "type": "string" },
+        "instrument": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "time": { "type": "string" },
+        "durationMinutes": { "type": "integer" },
+        "type": { "type": "string", "enum": ["Trial", "Regular Lesson", "Makeup"] },
+        "status": { "type": "string", "enum": ["Scheduled", "Completed", "Cancelled"] },
+        "attendance": { "type": "string", "enum": ["Present", "Absent", "Excused"] }
+      },
+      "required": ["leadId", "leadName", "tutorId", "tutorName", "instrument", "date", "time", "durationMinutes", "type", "status"]
+    }
+  },
+  "firestore": {
+    "/leads/{leadId}": {
+      "schema": "leads",
+      "description": "Collection of prospective and current student leads"
+    },
+    "/interactions/{interactionId}": {
+      "schema": "interactions",
+      "description": "Collection of contact history for leads"
+    },
+    "/performances/{performanceId}": {
+      "schema": "performances",
+      "description": "Collection of student weekly performance logs"
+    },
+    "/invoices/{invoiceId}": {
+      "schema": "invoices",
+      "description": "Collection of billing invoice and payment records"
+    },
+    "/lessons/{lessonId}": {
+      "schema": "lessons",
+      "description": "Collection of academic schedules and attendance records"
+    }
+  }
+}
